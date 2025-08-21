@@ -1,0 +1,51 @@
+@use '../../utils/variables.scss' as *;
+
+.button_wrapper {
+  @include flex-centered;
+
+  cursor: pointer;
+
+  width: 32px;
+  height: 32px;
+  border: transparent;
+
+  background-color: var(--slider-swipe-button);
+
+  &:hover {
+    transform: scale(1.1);
+    border: 1px solid #525252;
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+.disabled {
+  cursor: not-allowed;
+  border: 1px solid var(--button-border-disabled);
+  transition: none;
+
+  background-color: var(--bg-color);
+
+  &:hover {
+    transform: none;
+    border: 1px solid var(--button-border-disabled);
+  }
+}
+
+.up {
+  transform: rotate(-90deg);
+}
+
+.down {
+  transform: rotate(90deg);
+}
+
+.right {
+  transform: none;
+}
+
+.left {
+  transform: rotate(-180deg);
+}

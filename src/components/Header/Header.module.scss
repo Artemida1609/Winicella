@@ -1,0 +1,104 @@
+@use '../../utils/variables.scss' as *;
+@use '../../utils/mixins.scss' as *;
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #131215;
+  color: #bbb;
+}
+
+
+.header_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 10%;
+  border-bottom: 1px solid #dee2e6;
+
+  @include on-tablet {
+    padding: 20px 5%;
+  }
+}
+
+.header_logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.header_logo_img {
+  width: 70px;
+  height: 70px;
+  margin-right: 10px;
+
+  @include on-tablet {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+.header_logo_text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  color: #fff;
+}
+
+.header_navbar {
+  display: flex;
+  gap: 20px;
+}
+
+.header_nav_item {
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  color: #fff;
+  font-style: normal;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+}
+
+.header_nav_item:hover {
+  color: #921b1e;
+  text-shadow: 0 0 35px color.adjust(#921b1e, $lightness: 50%);
+  cursor: pointer;
+}
+
+.header_nav_item_active {
+  color: #921b1e;
+  font-weight: bold;
+}
+
+.header_burger_menu_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background-color: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.header_burger_menu_button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all .5s ease-in-out;
+
+  &:hover {
+    transform: rotate(180deg);
+  }
+}
+
+.header_burger_menu_icon {
+  width: 32px;
+  height: 32px;
+}

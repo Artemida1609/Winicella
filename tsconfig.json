@@ -1,7 +1,8 @@
 {
   "extends": "@mate-academy/students-ts-config",
   "include": [
-    "src"
+    "src",
+    "backend/server.js"
   ],
   "compilerOptions": {
     "sourceMap": false,
