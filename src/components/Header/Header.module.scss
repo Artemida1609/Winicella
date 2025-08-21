@@ -62,7 +62,7 @@ html, body {
 
 .header_nav_item:hover {
   color: #921b1e;
-  text-shadow: 0 0 35px color.adjust(#921b1e, $lightness: 50%);
+  text-shadow: 0 0 35px lighten(#921b1e, 50%);
   cursor: pointer;
 }
 
