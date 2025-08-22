@@ -5,6 +5,7 @@ import pool from './db.js';
 import cors from 'cors';
 
 const app = express();
+const port = process.env.PORT || 4000;
 
 app.use(cors());
 
@@ -30,6 +31,6 @@ app.get('/wines_wine', async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
