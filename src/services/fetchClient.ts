@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'https://winicella.onrender.com';
 
 function request<T>(url: string, method: 'GET', data: any = null): Promise<T> {
   const options: RequestInit = { method };
