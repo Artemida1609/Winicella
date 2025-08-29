@@ -43,17 +43,19 @@ app.post('/api/user/register', async (req, res) => {
 
   try {
     const result = await pool.query(
-      'INSERT INTO users (first_name, last_name, email, password) ' +
-        'VALUES ($1, $2, $3, $4) RETURNING *',
+      'INSERT INTO user_user (first_name, last_name, email, password, is_superuser, is_staff, is_active, date_joined) ' +
+        'VALUES ($1, $2, $3, $4, false, false, true, NOW()) RETURNING *',
       [first_name, last_name, email, password],
     );
 
     res.status(201).json(result.rows[0]);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Database error' });
+  } catch (err: any) {
+    console.error('Database insert error:', err.message, err.stack);
+    console.log('Database insert error:', err.message, err.stack);
+    res.status(500).json({ error: err.message });
   }
 });
+
 
 app.listen(port, '0.0.0.0', () => {
   console.log(`Server is running on port ${port}`);
