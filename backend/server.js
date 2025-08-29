@@ -1,5 +1,7 @@
 /* eslint-disable import/extensions */
 /* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/naming-convention */
 import express from 'express';
 import pool from './db.js';
 import cors from 'cors';

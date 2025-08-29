@@ -1,3 +1,4 @@
+/* stylelint-disable selector-pseudo-class-no-unknown */
 .main_container {
   display: flex;
   justify-content: center;
@@ -30,10 +31,12 @@
     opacity 0.28s ease;
 }
 
-// :global(.activeRegModal) .form_main {
-//   transform: translateY(0) scale(1);
-//   opacity: 1;
-// }
+:global(.activeRegModal) {
+  .form_main {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
 
 .form_header {
   font-family: Cinzel, sans-serif;
@@ -69,7 +72,6 @@
   font-family: Poppins, sans-serif;
   font-size: 16px;
   color: #fff;
-
 }
 
 .form_input:focus {
