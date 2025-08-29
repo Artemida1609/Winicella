@@ -2,9 +2,9 @@ import { useOutletContext, useParams } from 'react-router-dom';
 import ProductDetail from '../components/ProductDetail/ProductDetail';
 import { Wine } from '../types/Wine';
 import { useEffect, useState } from 'react';
+import { Loader } from '../components/Loader/Loader';
 
 const DetailsPage: React.FC = () => {
-  // const location = useLocation();
   const { wines } = useOutletContext<{ wines: Wine[] }>();
   const { productId: productIdFromUrl } = useParams();
   const [product, setProduct] = useState<Wine | null>(null);
@@ -20,11 +20,11 @@ const DetailsPage: React.FC = () => {
   }, [wines, productIdFromUrl]);
 
   if (!wines.length) {
-    return <div>Loading...</div>;
-  }
-
-  if (!product) {
-    return <div>Product not found</div>;
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
 
   return (

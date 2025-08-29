@@ -1,7 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { User } from '../types/User';
 const BASE_URL = 'https://winicella.onrender.com';
 
-function request<T>(url: string, method: 'GET', data: any = null): Promise<T> {
+type Options = 'GET' | 'POST' | 'PATCH';
+
+function request<T>(
+  url: string,
+  method: Options,
+  data: any = null,
+): Promise<T> {
   const options: RequestInit = { method };
 
   if (data) {
@@ -22,4 +29,5 @@ function request<T>(url: string, method: 'GET', data: any = null): Promise<T> {
 
 export const client = {
   get: <T>(url: string) => request<T>(url, 'GET'),
+  post: <T>(url: string, data: User) => request<T>(url, 'POST', data),
 };

@@ -6,6 +6,8 @@ import { FavouritesProvider } from './components/Favourites/FavouritesContext';
 import DetailsPage from './modules/DetailsPage';
 import CatalogPage from './modules/CatalogPage';
 import FavouritesPage from './modules/FavouritesPage';
+import { Loader } from './components/Loader/Loader';
+// import Register from './components/Register/Register';
 
 export const Root: React.FC = () => {
   return (
@@ -16,7 +18,7 @@ export const Root: React.FC = () => {
             <Route
               index
               element={
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Loader />}>
                   <HomePage />
                 </Suspense>
               }
@@ -24,7 +26,7 @@ export const Root: React.FC = () => {
             <Route
               path='favourites'
               element={
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Loader />}>
                   <FavouritesPage />
                 </Suspense>
               }
@@ -32,7 +34,7 @@ export const Root: React.FC = () => {
             <Route
               path='product/:productId'
               element={
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Loader />}>
                   <DetailsPage />
                 </Suspense>
               }
@@ -40,11 +42,19 @@ export const Root: React.FC = () => {
             <Route
               path='catalog'
               element={
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Loader />}>
                   <CatalogPage />
                 </Suspense>
               }
             />
+            {/* <Route
+              path='register'
+              element={
+                <Suspense fallback={<Loader />}>
+                  <Register />
+                </Suspense>
+              }
+            /> */}
           </Route>
         </Routes>
       </Router>

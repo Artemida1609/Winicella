@@ -8,6 +8,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors());
+app.use(express.json()); // Щоб обробляти JSON у тілі запиту
 
 app.get('/', async (req, res) => {
   try {
@@ -28,6 +29,27 @@ app.get('/wines_wine', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send('Database error');
+  }
+});
+
+app.post('/api/user/register', async (req, res) => {
+  const { first_name, last_name, email, password } = req.body;
+
+  if (!first_name || !last_name || !email || !password) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
+
+  try {
+    const result = await pool.query(
+      'INSERT INTO users (first_name, last_name, email, password) ' +
+        'VALUES ($1, $2, $3, $4) RETURNING *',
+      [first_name, last_name, email, password],
+    );
+
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Database error' });
   }
 });
 

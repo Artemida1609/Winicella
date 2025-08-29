@@ -112,6 +112,9 @@
   font-style: normal;
   text-align: left;
   color: #fff;
+  max-height: 195px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .main_price_and_button_wrapper {
@@ -166,4 +169,9 @@
 .main_button:active {
   transform: scale(0.95);
   box-shadow: none;
+}
+
+.liked {
+  background-color: #fff;
+  color: #d90f0f;
 }

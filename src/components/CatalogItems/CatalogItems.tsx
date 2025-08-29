@@ -18,6 +18,7 @@ import { ButtonDirection } from '../../enums/ButtonDirection';
 import { Button } from '../Button/Button';
 import sortByCategory from '../../utils/SortByCategory';
 import Tooltip from '@mui/material/Tooltip';
+import { Loader } from '../Loader/Loader';
 
 type Props = {
   setDisabledIds: (arg: number[]) => void;
@@ -108,13 +109,11 @@ const CatalogItems: React.FC<Props> = ({ setDisabledIds, disabledIds }) => {
     const currentValues = newParams.getAll(category);
 
     if (currentValues.includes(value)) {
-      // якщо значення вже є → видаляємо його
       const filtered = currentValues.filter(v => v !== value);
 
       newParams.delete(category);
       filtered.forEach(v => newParams.append(category, v));
     } else {
-      // додаємо нове значення
       newParams.append(category, value);
     }
 
@@ -231,6 +230,14 @@ const CatalogItems: React.FC<Props> = ({ setDisabledIds, disabledIds }) => {
       });
   }, []);
 
+  if (!activeData || activeData.length === 0) {
+    return (
+      <div className={styles.loader_container}>
+        <Loader />
+      </div>
+    );
+  }
+
   return (
     <section className={styles.catalog_items_container}>
       <div className={styles.back_button} onClick={handleBackButtonClick}>
@@ -314,7 +321,6 @@ const CatalogItems: React.FC<Props> = ({ setDisabledIds, disabledIds }) => {
       </div>
 
       <section className={`${styles.button_container}`}>
-        {/* <div className={`${styles.buttons_wrapper}`}> */}
         {buttonsCount.length > 0 && buttonsCount[0] !== '0' && (
           <Button
             direction={ButtonDirection.left}
@@ -345,7 +351,6 @@ const CatalogItems: React.FC<Props> = ({ setDisabledIds, disabledIds }) => {
             disabledIds={disabledIds}
           />
         )}
-        {/* </div> */}
       </section>
     </section>
   );

@@ -58,11 +58,12 @@ html, body {
   font-style: normal;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
+  align-self: center;
 }
 
 .header_nav_item:hover {
   color: #921b1e;
-  text-shadow: 0 0 35px lighten(#921b1e, 50%);
+  text-shadow: 0 0 35px #921b1e;
   cursor: pointer;
 }
 
@@ -101,4 +102,20 @@ html, body {
 .header_burger_menu_icon {
   width: 32px;
   height: 32px;
+}
+
+.profile_icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: #525252;
+  }
 }

@@ -5,12 +5,14 @@ import { Wine } from './types/Wine';
 import { getAllWines } from './services/productsApi';
 import SideBar from './components/SideBar/SideBar';
 import classNames from 'classnames';
+import Register from './components/Register/Register';
 
 export const App: React.FC = () => {
   const [width, setWidth] = useState<number>(window.innerWidth);
   const [activeAside, setActiveAside] = useState<boolean>(false);
   const [wines, setWines] = useState<Wine[]>([]);
   const [disabledIds, setDisabledIds] = useState<number[]>([0, 2, 5]);
+  const [activeRegModal, setActiveRegModal] = useState<boolean>(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -28,6 +30,16 @@ export const App: React.FC = () => {
     });
   }, []);
 
+  useEffect(() => {
+    if (activeRegModal) {
+      document.body.classList.add('no-scroll');
+      document.documentElement.classList.add('no-scroll'); // html
+    } else {
+      document.body.classList.remove('no-scroll');
+      document.documentElement.classList.remove('no-scroll');
+    }
+  }, [activeRegModal]);
+
   return (
     <>
       <main className='App'>
@@ -39,6 +51,14 @@ export const App: React.FC = () => {
         >
           <SideBar setActiveAside={setActiveAside} />
         </div>
+        <div
+          className={classNames('RegModal', {
+            activeRegModal: activeRegModal,
+            inactiveRegModal: !activeRegModal,
+          })}
+        >
+          <Register setActiveRegModal={setActiveRegModal} />
+        </div>
         <Outlet
           context={{
             width,
@@ -47,6 +67,7 @@ export const App: React.FC = () => {
             disabledIds,
             setDisabledIds,
             setActiveAside,
+            setActiveRegModal,
           }}
         />
       </main>
