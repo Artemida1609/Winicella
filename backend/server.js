@@ -49,13 +49,12 @@ app.post('/api/user/register', async (req, res) => {
     );
 
     res.status(201).json(result.rows[0]);
-  } catch (err: any) {
+  } catch (err) {
     console.error('Database insert error:', err.message, err.stack);
     console.log('Database insert error:', err.message, err.stack);
     res.status(500).json({ error: err.message });
   }
 });
-
 
 app.listen(port, '0.0.0.0', () => {
   console.log(`Server is running on port ${port}`);
