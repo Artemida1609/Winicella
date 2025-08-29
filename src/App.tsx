@@ -13,6 +13,8 @@ export const App: React.FC = () => {
   const [wines, setWines] = useState<Wine[]>([]);
   const [disabledIds, setDisabledIds] = useState<number[]>([0, 2, 5]);
   const [activeRegModal, setActiveRegModal] = useState<boolean>(false);
+  const [isRegistered, setIsRegistered] = useState<boolean>(true);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
 
   useEffect(() => {
     const handleResize = () => {
@@ -40,6 +42,22 @@ export const App: React.FC = () => {
     }
   }, [activeRegModal]);
 
+  useEffect(() => {
+    const loggedIn = localStorage.getItem('isLoggedIn');
+
+    if (!loggedIn) {
+      setIsLoggedIn(false);
+      setIsRegistered(false);
+      setActiveRegModal(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      setActiveRegModal(true);
+    }
+  }, [isLoggedIn]);
+
   return (
     <>
       <main className='App'>
@@ -57,7 +75,13 @@ export const App: React.FC = () => {
             inactiveRegModal: !activeRegModal,
           })}
         >
-          <Register setActiveRegModal={setActiveRegModal} />
+          <Register
+            setActiveRegModal={setActiveRegModal}
+            isRegistered={isRegistered}
+            setIsRegistered={setIsRegistered}
+            isLoggedIn={isLoggedIn}
+            setIsLoggedIn={setIsLoggedIn}
+          />
         </div>
         <Outlet
           context={{
@@ -68,6 +92,10 @@ export const App: React.FC = () => {
             setDisabledIds,
             setActiveAside,
             setActiveRegModal,
+            isRegistered,
+            setIsRegistered,
+            isLoggedIn,
+            setIsLoggedIn,
           }}
         />
       </main>

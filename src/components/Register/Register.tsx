@@ -1,22 +1,79 @@
 import { useState } from 'react';
-import { registerUser } from '../../services/productsApi';
+import {
+  getAllRegisteredUsers,
+  registerUser,
+} from '../../services/productsApi';
 import styles from './Register.module.scss';
+import classNames from 'classnames';
 
 type Props = {
   setActiveRegModal: (arg: boolean) => void;
+  isRegistered: boolean;
+  setIsRegistered: (arg: boolean) => void;
+  isLoggedIn: boolean;
+  setIsLoggedIn: (arg: boolean) => void;
 };
 
-const Register: React.FC<Props> = ({ setActiveRegModal }) => {
+const Register: React.FC<Props> = ({
+  setActiveRegModal,
+  isRegistered,
+  setIsRegistered,
+  isLoggedIn,
+  setIsLoggedIn,
+}) => {
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [error, setError] = useState<boolean>(false);
 
   const handleCloseModal = () => {
     setActiveRegModal(false);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const toggleIsRegistered = () => {
+    if (isRegistered) {
+      setIsRegistered(false);
+    } else {
+      setIsRegistered(true);
+    }
+  };
+
+  const handleLogIn = (
+    e: React.FormEvent,
+    userFirstName: string,
+    userLastName: string,
+    userEmail: string,
+    userPassword: string,
+  ) => {
+    e.preventDefault();
+
+    getAllRegisteredUsers().then(users => {
+      const userExist = users.find(
+        user =>
+          user.email === userEmail &&
+          user.password === userPassword &&
+          user.first_name === userFirstName &&
+          user.last_name === userLastName,
+      );
+
+      if (userExist && userExist !== undefined) {
+        localStorage.setItem('isLoggedIn', 'true');
+        setIsRegistered(true);
+        setIsLoggedIn(true);
+        setActiveRegModal(false);
+        setFirstName('');
+        setLastName('');
+        setEmail('');
+        setPassword('');
+        setError(false);
+      } else {
+        setError(true);
+      }
+    });
+  };
+
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
@@ -26,29 +83,35 @@ const Register: React.FC<Props> = ({ setActiveRegModal }) => {
         last_name: lastName,
         password,
       });
-    } catch (error) {
-      // console.error('Rgistration failed:', error);
     } finally {
+      localStorage.setItem('isLoggedIn', 'true');
       setFirstName('');
       setLastName('');
       setEmail('');
       setPassword('');
+      setIsLoggedIn(true);
+      setIsRegistered(true);
+      setActiveRegModal(false);
     }
   };
 
   return (
-    <form className={styles.form_main} onSubmit={handleSubmit}>
-      <h1 className={styles.form_header}>Register</h1>
-      <span className={styles.close_icon} onClick={handleCloseModal}>
-        <img
-          src='./img/icons/close-icon-dark-theme.svg'
-          alt='close icon'
-          className={styles.close_icon_img}
-        />
-      </span>
+    <form className={styles.form_main}>
+      <h1 className={styles.form_header}>
+        {isRegistered ? 'Login' : 'Sign up'}
+      </h1>
+      {isRegistered && isLoggedIn && (
+        <span className={styles.close_icon} onClick={handleCloseModal}>
+          <img
+            src='./img/icons/close-icon-dark-theme.svg'
+            alt='close icon'
+            className={styles.close_icon_img}
+          />
+        </span>
+      )}
       <div className={styles.form_label_input_wrapper}>
         <label htmlFor='username-input' className={styles.form_label}>
-          Name:
+          First Name:
         </label>
         <input
           type='text'
@@ -62,7 +125,7 @@ const Register: React.FC<Props> = ({ setActiveRegModal }) => {
       </div>
       <div className={styles.form_label_input_wrapper}>
         <label htmlFor='userLastName-input' className={styles.form_label}>
-          LastName:
+          Last Name:
         </label>
         <input
           type='text'
@@ -103,11 +166,39 @@ const Register: React.FC<Props> = ({ setActiveRegModal }) => {
           onChange={e => setPassword(e.target.value)}
         />
       </div>
+      <div className={styles.has_account_cont}>
+        {isRegistered ? (
+          <p className={styles.has_account}>Don`t have an account?</p>
+        ) : (
+          <p className={styles.has_account}>Already has account?</p>
+        )}
+
+        <p className={styles.has_account_click} onClick={toggleIsRegistered}>
+          Click
+        </p>
+      </div>
+      {error && <p>Error</p>}
       <div className={styles.form_buttons_container}>
-        <button className={styles.form_button} type='submit'>
+        <button
+          className={classNames(styles.form_button, {
+            [styles.isRegistered]: !isRegistered,
+            [styles.isNotRegistered]: isRegistered,
+          })}
+          onClick={handleRegister}
+          disabled={isRegistered}
+        >
           Sign up
         </button>
-        <button className={styles.form_button} type='submit'>
+        <button
+          className={classNames(styles.form_button, {
+            [styles.isRegistered]: isRegistered,
+            [styles.isNotRegistered]: !isRegistered,
+          })}
+          disabled={!isRegistered}
+          onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+            handleLogIn(e, firstName, lastName, email, password)
+          }
+        >
           Login
         </button>
       </div>

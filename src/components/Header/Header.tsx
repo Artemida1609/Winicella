@@ -2,17 +2,22 @@
 import { NavLink, useOutletContext } from 'react-router-dom';
 import styles from './Header.module.scss';
 import classNames from 'classnames';
-import Register from '../Register/Register';
-import { useState } from 'react';
+// import Register from '../Register/Register';
+// import { useState } from 'react';
 
 type Props = {
   width: number;
   setActiveAside: (arg: boolean) => void;
+
 };
 
 const Header: React.FC<Props> = ({ width, setActiveAside }) => {
-  const { setActiveRegModal } = useOutletContext<{
+  const { setActiveRegModal, isRegistered, setIsRegistered, isLoggedIn, setIsLoggedIn } = useOutletContext<{
     setActiveRegModal: (arg: boolean) => void;
+    isRegistered: boolean;
+    setIsRegistered: (arg: boolean) => void;
+    isLoggedIn: boolean;
+    setIsLoggedIn: (arg: boolean) => void;
   }>();
   const handleActiveLink = ({ isActive }: { isActive: boolean }) => {
     return classNames(`${styles.header_nav_item}`, {
@@ -23,6 +28,11 @@ const Header: React.FC<Props> = ({ width, setActiveAside }) => {
   const handleRegisterLink = () => {
     setActiveRegModal(true);
   };
+
+  const handleLogout = () => {
+    setIsRegistered(false);
+    setIsLoggedIn(false);
+  }
 
   return (
     <>
@@ -70,9 +80,14 @@ const Header: React.FC<Props> = ({ width, setActiveAside }) => {
             <NavLink to='/favourites' className={handleActiveLink}>
               FAVOURITES
             </NavLink>
-            <a className={styles.profile_icon} onClick={handleRegisterLink}>
-              <img src='./img/icons/profile-icon.png' alt='profile icon' />
-            </a>
+            {!isRegistered && !isLoggedIn && (
+              <a className={styles.profile_icon} onClick={handleRegisterLink}>
+                <img src='./img/icons/profile-icon.png' alt='profile icon' />
+              </a>
+            )}
+            {isRegistered && isLoggedIn && (
+              <p className={styles.logout_btn} onClick={handleLogout}>Logout</p>
+            )}
           </div>
         </div>
       )}

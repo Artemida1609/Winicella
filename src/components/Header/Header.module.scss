@@ -119,3 +119,20 @@ html, body {
     background-color: #525252;
   }
 }
+
+.logout_btn {
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  color: #921b1e;
+  font-style: normal;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  align-self: center;
+  cursor: pointer;
+
+  &:hover {
+    color: #fff;
+    text-shadow: 0 0 35px;
+  }
+}
