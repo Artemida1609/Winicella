@@ -56,6 +56,19 @@ app.post('/api/user/register', async (req, res) => {
   }
 });
 
+app.get('/api/user/all', async (req, res) => {
+  try {
+    const result = await pool.query(
+      'SELECT * FROM user_user ORDER BY id DESC LIMIT 10',
+    );
+
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.listen(port, '0.0.0.0', () => {
   console.log(`Server is running on port ${port}`);
 });
