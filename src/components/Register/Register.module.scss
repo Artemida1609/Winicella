@@ -1,4 +1,7 @@
 /* stylelint-disable selector-pseudo-class-no-unknown */
+@use '../../utils/variables.scss' as *;
+@use '../../utils/mixins.scss' as *;
+
 .main_container {
   display: flex;
   justify-content: center;
@@ -13,8 +16,8 @@
   align-items: center;
   flex-direction: column;
 
-  width: 400px;
-  padding: 40px;
+  width: 280px;
+  padding-bottom: 20px;
   border-radius: 12px;
   gap: 10px;
 
@@ -29,6 +32,11 @@
   transition:
     transform 0.28s ease,
     opacity 0.28s ease;
+
+  @include on-tablet {
+    width: 400px;
+    padding: 40px;
+  }
 }
 
 :global(.activeRegModal) {
@@ -39,7 +47,7 @@
 }
 
 .form_header {
-  font-family: Cinzel, sans-serif;
+  font-family: Poppins, sans-serif;
   font-size: 32px;
   color: #fff;
   margin: 20px 0;
@@ -50,6 +58,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .form_label {
@@ -62,7 +71,7 @@
 }
 
 .form_input {
-  width: 210px;
+  width: 140px;
   box-sizing: border-box;
   outline: 0;
   background: none;
@@ -73,6 +82,10 @@
   font-family: Poppins, sans-serif;
   font-size: 16px;
   color: #fff;
+
+  @include on-tablet {
+    width: 210px;
+  }
 }
 
 .form_input:focus {
@@ -150,4 +163,62 @@
     background-color: #525252;
     color: #131215;
   }
+}
+
+.eye_password {
+  position: absolute;
+  right: 5px;
+  width: 30px;
+  height: 30px;
+  align-self: center;
+  cursor: pointer;
+}
+
+.error_text {
+  font-family: Poppins, sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  border-radius: 8px;
+  padding: 2px;
+  background-color: #131215;
+  color: #d90f0f;
+}
+
+.password_check {
+  position: absolute;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(80%);
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 8px;
+}
+
+.password_check div {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  align-items: center;
+  font-weight: 500;
+  width: 250px;
+  box-sizing: border-box;
+
+  @include on-tablet {
+    width: 320px;
+  }
+}
+
+.password_icon {
+  height: 24px;
+  width: 24px;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
+.hidden {
+  display: none;
 }

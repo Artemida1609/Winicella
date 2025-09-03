@@ -8,6 +8,7 @@
   margin-bottom: 16px;
   position: relative;
   height: 300px;
+  background-color: #080404;
 }
 
 .perfect_pour_image {
@@ -15,7 +16,7 @@
   height: 150px;
   object-fit: cover;
   transform: rotate(20deg) scale(1.3);
-  z-index: 1;
+  z-index: 11;
   
   @include on-tablet {
     height: 350px;
@@ -38,6 +39,7 @@
   background-color: #d90f0f;
   border-radius: 50%;
   filter: blur(50px);
+  z-index: 10;
 
   @include on-tablet {
     width: 200px;

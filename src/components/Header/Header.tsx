@@ -80,11 +80,11 @@ const Header: React.FC<Props> = ({ width, setActiveAside }) => {
             <NavLink to='/favourites' className={handleActiveLink}>
               FAVOURITES
             </NavLink>
-            {!isRegistered && !isLoggedIn && (
+            {/* {isRegistered && isLoggedIn && (
               <a className={styles.profile_icon} onClick={handleRegisterLink}>
                 <img src='./img/icons/profile-icon.png' alt='profile icon' />
               </a>
-            )}
+            )} */}
             {isRegistered && isLoggedIn && (
               <p className={styles.logout_btn} onClick={handleLogout}>Logout</p>
             )}

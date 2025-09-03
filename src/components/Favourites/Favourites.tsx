@@ -16,21 +16,36 @@ const Favourites: React.FC = () => {
   return (
     <>
       <section className={`${styles.favourites_container}`}>
-        <div
-          className={styles.details_back_button}
-          onClick={handleBackButtonClick}
-        >
-          <img
-            src='./img/icons/dark-theme-arrow.svg'
-            alt='arrow left'
-            className={styles.details_back_button_icon}
-          />
-          <span className={styles.details_back_button_text}>Back</span>
-        </div>
-        <h1 className={`${styles.favourites_title}`}>Favourites</h1>
-        <p className={`${styles.favourites_count}`}>
-          {favourites.length} items
-        </p>
+        {favourites.length !== 0 && (
+          <>
+            <div
+              className={styles.details_back_button}
+              onClick={handleBackButtonClick}
+            >
+              <img
+                src='./img/icons/dark-theme-arrow.svg'
+                alt='arrow left'
+                className={styles.details_back_button_icon}
+              />
+              <span className={styles.details_back_button_text}>Back</span>
+            </div>
+            <h1 className={`${styles.favourites_title}`}>Favourites</h1>
+            <p className={`${styles.favourites_count}`}>
+              {favourites.length} items
+            </p>
+          </>
+        )}
+
+        {favourites.length === 0 && (
+          <>
+            <h1 className={`${styles.fav_empty_title}`}>Favourites is empty</h1>
+            <img
+              src='./img/page-not-found.png'
+              alt='favourites empty icon'
+              className={`${styles.fav_empty_image}`}
+            />
+          </>
+        )}
         <div className={`${styles.favourites_list}`}>
           {favourites.map(fav => {
             return <ProductCard key={fav.id} product={fav} onPage={false} />;

@@ -123,6 +123,7 @@
 .favourites_footer_logo {
   display: flex;
   align-items: center;
+  justify-content: center;
   text-decoration: none;
   width: 150px;
 
@@ -205,4 +206,45 @@
   width: 16px;
   height: 16px;
   transform: rotate(-90deg);
+}
+
+.no_favaourites_text {
+  font-family: Poppins, sans-serif;
+  font-size: 24px;
+}
+
+.fav_empty_title {
+  font-family: Cinzel, sans-serif;
+  font-weight: 800;
+  font-size: 32px;
+  height: 48px;
+  line-height: 48px;
+  letter-spacing: -0.01em;
+  width: fit-content;
+  margin: 0 0 20px;
+  color: #fff;
+
+  @include on-tablet {
+    font-size: 48px;
+  }
+}
+
+.fav_empty_image {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  transition: all 0.5s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+
+  @include on-tablet {
+    width: 360px;
+    height: 360px;
+  }
 }
