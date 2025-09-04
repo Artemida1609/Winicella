@@ -218,34 +218,7 @@ const Register: React.FC<Props> = ({
           onChange={e => setEmail(e.target.value)}
         />
       </div>
-      <div>
-        <div className={styles.form_label_input_wrapper}>
-          <label htmlFor='password-input' className={styles.form_label}>
-            Password:
-          </label>
-          <input
-            aria-describedby='password-hint'
-            id='password-input'
-            name='userPassword'
-            required
-            onFocus={() => setFocus(true)}
-            onBlur={() => setFocus(false)}
-            type={hidePassword ? 'password' : 'text'}
-            className={styles.form_input}
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-          />
-          <img
-            className={styles.eye_password}
-            onClick={handleHidePassword}
-            src={
-              hidePassword
-                ? './img/icons/eye-password-hide.svg'
-                : './img/icons/eye-close-up.svg'
-            }
-            alt='password eye'
-          />
-        </div>
+      <div className={styles.wrapper}>
         <div
           className={classNames(styles.password_check, {
             [styles.hidden]: !focus,
@@ -311,6 +284,33 @@ const Register: React.FC<Props> = ({
             />
             At least 1 special character (@-$)
           </div>
+        </div>
+        <div className={styles.form_label_input_wrapper}>
+          <label htmlFor='password-input' className={styles.form_label}>
+            Password:
+          </label>
+          <input
+            aria-describedby='password-hint'
+            id='password-input'
+            name='userPassword'
+            required
+            onFocus={() => setFocus(true)}
+            onBlur={() => setFocus(false)}
+            type={hidePassword ? 'password' : 'text'}
+            className={styles.form_input}
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+          <img
+            className={styles.eye_password}
+            onClick={handleHidePassword}
+            src={
+              hidePassword
+                ? './img/icons/eye-password-hide.svg'
+                : './img/icons/eye-close-up.svg'
+            }
+            alt='password eye'
+          />
         </div>
       </div>
       <div className={styles.has_account_cont}>
